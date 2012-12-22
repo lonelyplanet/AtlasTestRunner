@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
-from atlas_test_runner import AtlasTestRunner
+from test_runner.runner import AtlasTestRunner
+
 
 class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
   def run(self, edit):

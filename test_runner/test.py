@@ -1,10 +1,12 @@
+#!/usr/bin/env python
+
 import unittest
-from atlas_test_runner import JasmineTestFile
-from atlas_test_runner import CucumberTestFile
+from jasmine import JasmineTestFile
+from cucumber import CucumberTestFile
 
 
 def get_config():
-  return eval(open("AtlasTestRunner.sublime-settings", "r").read())
+  return eval(open("../AtlasTestRunner.sublime-settings", "r").read())
 
 
 class TestJasmineTestFile(unittest.TestCase):
