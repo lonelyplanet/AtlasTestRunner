@@ -1,0 +1,6 @@
+[  
+    {  
+        "keys": ["super+alt+t"], 
+        "command": "atlas_test_runner"  
+    }  
+] 

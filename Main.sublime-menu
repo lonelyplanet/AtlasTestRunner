@@ -1,0 +1,11 @@
+[
+  {
+    "id":"tools",
+    "children":[
+      {
+        "caption":"Atlas Test: Run full spec",
+        "command":"atlas_test_runner"
+      }
+    ]
+  }
+]

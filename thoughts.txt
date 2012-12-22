@@ -1,0 +1,15 @@
+
+JasmineTestFile
+CucumberTestFile
+RSpecTestFile
+
+determine testfile type
+
+run all tests
+run single test
+run from line number
+
+configurable exec commands
+  bundle exec cucumber/rspec
+  rvm?
+  
