@@ -11,7 +11,10 @@ class MockView(object):
 class TestAtlasTestRunner(unittest.TestCase):
   def setUp(self):
     global runner
-    runner = AtlasTestRunner(MockView())
+    runner = AtlasTestRunner(MockView(), self.get_config())
+
+  def get_config(self):
+    return eval(open("AtlasTestRunner.sublime-settings", "r").read())
 
   def test_jasmine_path(self):
     runner.view.fname = "atlas/spec/javascripts/charlie_spec.coffee"

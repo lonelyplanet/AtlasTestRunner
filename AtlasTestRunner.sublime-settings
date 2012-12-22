@@ -1,0 +1,6 @@
+{
+  "jasmine_url":    "http://atlas.local/runspec/spec/",
+  "jasmine_regex":  "atlas/spec/javascripts/(.*_spec).coffee",
+  "cucumber_regex": "(.*/features/.*.feature)",
+  "cucumber_cmd":   "bundle exec cucumber"
+}

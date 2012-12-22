@@ -6,23 +6,24 @@ import webbrowser
 
 class AtlasTestRunner(object):
 
-  def __init__(self, view):
+  def __init__(self, view, config):
     self.view = view
+    self.config = config
 
   def _match(self, pat):
     m = re.search(pat, self.view.file_name())
     return (m and m.groups()[0])    
 
   def jasmine_path(self):
-    m = self._match("atlas/spec/javascripts/(.*_spec).coffee")
+    m = self._match(self.config["jasmine_regex"])
     return (m and m+".js")
 
   def feature_path(self):
-    return self._match("(.*/features/.*.feature)")
+    return self._match(self.config["cucumber_regex"])
 
   def run_spec(self):
     webbrowser.open_new_tab(
-      "http://atlas.local/runspec/spec/" + self.jasmine_path())
+      self.config["jasmine_url"] + self.jasmine_path())
 
   def _mktmpfile(self, prefix="test"):
     tmpdir  = tempfile.mkdtemp(prefix="AtlasTests")
@@ -43,14 +44,10 @@ class AtlasTestRunner(object):
     return m.groups()[0]
   
   def _cucumber_cmd(self):
-    cmd   = " bundle exec cucumber"
+    cmd   = " " + self.config["cucumber_cmd"]
     opts  = " --format html"
     opts += " --require " + self._rails_root()+"/features/support/atlas"
     return "%(cmd)s %(opts)s " % locals()
-
-  def get_current_line_number(self, view):
-    char_under_cursor = view.sel()[0].a
-    return view.rowcol(char_under_cursor)[0] + 1
 
   def run_feature(self):
     # TODO: save active file
