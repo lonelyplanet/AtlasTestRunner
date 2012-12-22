@@ -4,7 +4,7 @@ from atlas_test_runner import AtlasTestRunner
 
 class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
   def run(self, edit):
-    runner = AtlasTestRunner(self.view, self.get_config())
+    runner = AtlasTestRunner(self.get_config())
     print("\n")
     if runner.jasmine_path():
       runner.run_spec()
@@ -18,6 +18,7 @@ class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
       "jasmine_regex":  settings.get("jasmine_regex"),
       "cucumber_regex": settings.get("cucumber_regex"),
       "cucumber_cmd":   settings.get("cucumber_cmd"),
+      "file_path":      self.view.file_name(),
       "current_line_number": self.current_line_number()
     }
 

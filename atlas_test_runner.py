@@ -5,13 +5,11 @@ import commands
 import webbrowser
 
 class AtlasTestRunner(object):
-
-  def __init__(self, view, config):
-    self.view = view
+  def __init__(self, config):
     self.config = config
 
   def _match(self, pat):
-    m = re.search(pat, self.view.file_name())
+    m = re.search(pat, self.config["file_path"])
     return (m and m.groups()[0])    
 
   def jasmine_path(self):
