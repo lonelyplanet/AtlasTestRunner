@@ -8,6 +8,13 @@ class AtlasTestRunner(object):
   def __init__(self, config):
     self.config = config
 
+  def run(self):
+    print("-----------------\n")
+    if self.jasmine_path():
+      self.run_spec()
+    elif self.feature_path():
+      self.run_feature()
+
   def _match(self, pat):
     m = re.search(pat, self.config["file_path"])
     return (m and m.groups()[0])    

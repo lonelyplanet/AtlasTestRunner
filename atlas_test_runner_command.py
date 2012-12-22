@@ -4,14 +4,9 @@ from atlas_test_runner import AtlasTestRunner
 
 class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
   def run(self, edit):
-    runner = AtlasTestRunner(self.get_config())
-    print("\n")
-    if runner.jasmine_path():
-      runner.run_spec()
-    elif runner.feature_path():
-      runner.run_feature()
+    AtlasTestRunner(self.config()).run()
 
-  def get_config(self):
+  def config(self):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
     return {
       "jasmine_url":    settings.get("jasmine_url"),
