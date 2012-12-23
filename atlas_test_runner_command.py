@@ -19,7 +19,9 @@ class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
       "cucumber_cmd":   settings.get("cucumber_cmd"),
       "working_dir":    settings.get("working_dir"),
       "file_path":      self.view.file_name(),
-      "current_line_number": self.current_line_number()
+      "error_message":  sublime.error_message,
+      "message_dialog": sublime.message_dialog,
+      "current_line_number": self.current_line_number(),
     }
 
   def current_line_number(self):

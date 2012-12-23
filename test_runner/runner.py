@@ -10,10 +10,15 @@ class AtlasTestRunner(object):
   def run(self):
     print("-----------------\n")
     file_path = self.config["file_path"]
+    
     if self.match(self.config["jasmine_regex"], file_path):
       JasmineTestFile(self.config).run()
+
     elif self.match(self.config["cucumber_regex"], file_path):
       CucumberTestFile(self.config).run()
+
+    else:
+      self.config["error_message"]("unknown type of testfile:\n\n"+file_path)
 
   def match(self, pattern, str):
     m = re.search(pattern, str)
