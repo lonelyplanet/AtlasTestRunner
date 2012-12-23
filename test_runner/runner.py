@@ -11,10 +11,10 @@ class AtlasTestRunner(object):
     print("-----------------\n")
     file_path = self.config["file_path"]
     
-    if self.match(self.config["jasmine_regex"], file_path):
+    if JasmineTestFile.matches(file_path):
       JasmineTestFile(self.config).run()
 
-    elif self.match(self.config["cucumber_regex"], file_path):
+    elif CucumberTestFile.matches(file_path):
       CucumberTestFile(self.config).run()
 
     else:

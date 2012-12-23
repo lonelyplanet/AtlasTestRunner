@@ -1,3 +1,4 @@
+import re
 import webbrowser
 from testFile import TestFile
 
@@ -6,6 +7,10 @@ class JasmineTestFile(TestFile):
   def __init__(self, config):
     self.config = config
     TestFile.__init__(self, config)
+
+  @staticmethod
+  def matches(file_path):
+    return re.search("_spec\.coffee$", file_path)
 
   def jasmine_path(self):
     m = self.match(self.config["jasmine_regex"])

@@ -22,6 +22,10 @@ class TestJasmineTestFile(unittest.TestCase):
     global test_file
     test_file = JasmineTestFile(get_config())
 
+  def test_matches(self):
+    self.assertTrue(JasmineTestFile.matches("atlas/spec/javascripts/charlie_spec.coffee"))
+    self.assertFalse(JasmineTestFile.matches("arthur/scargill/loves/his.espresso"))
+
   def test_jasmine_path(self):
     test_file.config["file_path"] = "atlas/spec/javascripts/charlie_spec.coffee"
     self.assertEqual(test_file.jasmine_path(), "charlie_spec.js")
@@ -31,6 +35,10 @@ class TestCucumberTestFile(unittest.TestCase):
   def setUp(self):
     global test_file
     test_file = CucumberTestFile(get_config())
+
+  def test_matches(self):
+    self.assertTrue(CucumberTestFile.matches("yet/another/creature.feature"))
+    self.assertFalse(CucumberTestFile.matches("hide/it/from/the.teacher"))
 
   def test_feature_path(self):
     test_file.config["file_path"] = "/a/features/ui/delete_poi.feature"
