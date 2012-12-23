@@ -2,28 +2,27 @@ import re
 from cucumber import CucumberTestFile
 from jasmine  import JasmineTestFile
 from rspec    import RSpecTestFile
+from unknown  import UnknownTestFile
 
 
 class AtlasTestRunner(object):
   def __init__(self, config):
     self.config = config
 
-  def run(self):
-    print("-----------------\n")
+  def current_test(self):
     file_path = self.config["file_path"]
-    
+
     if JasmineTestFile.matches(file_path):
-      JasmineTestFile(self.config).run()
+      return JasmineTestFile(self.config)
 
-    elif CucumberTestFile.matches(file_path):
-      CucumberTestFile(self.config).run()
+    if CucumberTestFile.matches(file_path):
+      return CucumberTestFile(self.config)
 
-    elif RSpecTestFile.matches(file_path):
-      RSpecTestFile(self.config).run()
+    if RSpecTestFile.matches(file_path):
+      return RSpecTestFile(self.config)
 
-    else:
-      self.config["error_message"]("unknown type of testfile:\n\n"+file_path)
+    return UnknownTestFile(self.config)
 
-  def match(self, pattern, str):
-    m = re.search(pattern, str)
-    return (m and m.groups()[0])    
+  def run(self):
+    self.current_test().run()
+

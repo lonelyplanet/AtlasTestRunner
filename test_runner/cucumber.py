@@ -4,9 +4,6 @@ from testFile import TestFile
 
 
 class CucumberTestFile(TestFile):
-  def __init__(self, config):
-    self.config = config
-    TestFile.__init__(self, config)
 
   @staticmethod
   def matches(file_path):
