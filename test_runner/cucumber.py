@@ -1,34 +1,21 @@
 import re
 import webbrowser
-from testFile import TestFile
+from rspec import RSpecTestFile
 
 
-class CucumberTestFile(TestFile):
+class CucumberTestFile(RSpecTestFile):
 
   @staticmethod
   def matches(file_path):
     return re.search("\.feature$", file_path)
 
-  def feature_path(self):
+  def path_to_test_file(self):
     return self.match(self.config["cucumber_regex"])
 
-  def cucumber_cmd(self):
-    cmd   = " " + self.config["cucumber_cmd"]
+  def command(self):
+    return self.config["cucumber_cmd"]
+
+  def options(self):
     opts  = " --format html"
     opts += " --require " + self.config["working_dir"]+"/features/support/atlas"
-    return "%(cmd)s %(opts)s " % locals()
-
-  def run(self, testfile):
-    tmpfile = self.mktmpfile()
-    cmd  = self.cucumber_cmd()
-    cmd += " --out " + tmpfile
-    cmd += " " + testfile
-    self.exec_cmd(cmd)
-    webbrowser.open_new_tab("file://%s" % tmpfile)
-
-  def run_all_tests(self):
-    self.run(self.feature_path())
-
-  def run_single_test(self):
-    self.run(self.feature_path() + ":" + str(self.config["current_line_number"]))
-
+    return opts

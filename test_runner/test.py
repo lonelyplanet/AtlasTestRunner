@@ -39,7 +39,7 @@ class TestCucumber(unittest.TestCase):
 
   def test_feature_path(self):
     test_file.config["file_path"] = "/a/features/ui/delete_poi.feature"
-    self.assertEqual(test_file.feature_path(), "features/ui/delete_poi.feature")
+    self.assertEqual(test_file.path_to_test_file(), "features/ui/delete_poi.feature")
 
 
 class TestRSpec(unittest.TestCase):
@@ -53,7 +53,7 @@ class TestRSpec(unittest.TestCase):
 
   def test_spec_path(self):
     test_file.config["file_path"] = "/a/spec/hoi/polloi_spec.rb"
-    self.assertEqual(test_file.spec_path(), "spec/hoi/polloi_spec.rb")
+    self.assertEqual(test_file.path_to_test_file(), "spec/hoi/polloi_spec.rb")
 
 
 class TestWorkingDirectory(unittest.TestCase):
