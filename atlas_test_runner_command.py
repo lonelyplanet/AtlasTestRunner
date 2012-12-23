@@ -3,19 +3,13 @@ import sublime_plugin
 from test_runner.runner import AtlasTestRunner
 
 
-class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
-  def run(self, edit):
-    config = self.config()
-    print("AtlasTestRunner config:")
-    print(config)
-    AtlasTestRunner(config).run()
-
-  def config(self):
+class BaseCommand(sublime_plugin.TextCommand):
+  def get_config(self):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
-    # It's a pain having to copy these settings manually,
-    # but sublime.settings offers no way to iterate over its' keys,
-    # and we're trying to keep sublime-specific classes outside the runner
-    # (mainly becuase it helps with testing)
+    # It's a pain having to copy these settings manually.
+    # But sublime.settings offers no way to iterate over its' keys,
+    # and we want to keep all sublime-specific classes outside the test_runner
+    # (mainly to aid testing)
     return {
       "jasmine_url":    settings.get("jasmine_url"),
       "jasmine_regex":  settings.get("jasmine_regex"),
@@ -33,4 +27,12 @@ class AtlasTestRunnerCommand(sublime_plugin.TextCommand):
   def current_line_number(self):
     char_under_cursor = self.view.sel()[0].a
     return self.view.rowcol(char_under_cursor)[0] + 1
+
+
+class RunAllTests(BaseCommand):
+  def run(self, edit):
+    self.config = self.get_config()
+    print("AtlasTestRunner config:")
+    print(self.config)
+    AtlasTestRunner(self.config).run()
 
