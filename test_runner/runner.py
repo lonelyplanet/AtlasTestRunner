@@ -23,6 +23,9 @@ class AtlasTestRunner(object):
 
     return UnknownTestFile(self.config)
 
-  def run(self):
-    self.current_test().run()
+  def run_all_tests(self):
+    self.current_test().run_all_tests()
+
+  def run_single_test(self):
+    self.current_test().run_single_test()
 

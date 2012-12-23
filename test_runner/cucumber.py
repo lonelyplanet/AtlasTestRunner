@@ -18,14 +18,17 @@ class CucumberTestFile(TestFile):
     opts += " --require " + self.config["working_dir"]+"/features/support/atlas"
     return "%(cmd)s %(opts)s " % locals()
 
-  def run(self):
-    # TODO: save active file
-    print("\n-------------------\n")
-    feature = self.feature_path()
+  def run(self, testfile):
     tmpfile = self.mktmpfile()
     cmd  = self.cucumber_cmd()
-    cmd += " --out %(tmpfile)s %(feature)s" % locals()
+    cmd += " --out " + tmpfile
+    cmd += " " + testfile
     self.exec_cmd(cmd)
     webbrowser.open_new_tab("file://%s" % tmpfile)
 
+  def run_all_tests(self):
+    self.run(self.feature_path())
+
+  def run_single_test(self):
+    self.run(self.feature_path() + ":" + str(self.config["current_line_number"]))
 

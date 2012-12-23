@@ -13,19 +13,21 @@ class RSpecTestFile(TestFile):
     return self.match(self.config["rspec_regex"])
 
   def rspec_cmd(self):
-    cmd   = " " + self.config["rspec_cmd"]
-    opts  = " --format html"
-    # opts += " --require " + self.config["working_dir"]+"/features/support/atlas"
+    cmd  = " " + self.config["rspec_cmd"]
+    opts = " --format html"
     return "%(cmd)s %(opts)s " % locals()
 
-  def run(self):
-    # TODO: save active file
-    print("\n-------------------\n")
-    spec_file = self.spec_path()
+  def run(self, testfile):
     tmpfile = self.mktmpfile()
     cmd  = self.rspec_cmd()
-    cmd += " --out %(tmpfile)s %(spec_file)s" % locals()
+    cmd += " --out " + tmpfile
+    cmd += " " + testfile
     self.exec_cmd(cmd)
     webbrowser.open_new_tab("file://%s" % tmpfile)
 
+  def run_all_tests(self):
+    self.run(self.spec_path())
+
+  def run_single_test(self):
+    self.run(self.spec_path() + ":" + str(self.config["current_line_number"]))
 

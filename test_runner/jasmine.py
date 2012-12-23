@@ -13,8 +13,11 @@ class JasmineTestFile(TestFile):
     m = self.match(self.config["jasmine_regex"])
     return (m and m+".js")
 
-  def run(self):
+  def run_all_tests(self):
     webbrowser.open_new_tab(
       self.config["jasmine_url"] + self.jasmine_path())
+
+  def run_single_test(self):
+    self.run_all_tests()
 
 

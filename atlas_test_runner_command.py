@@ -34,5 +34,13 @@ class RunAllTests(BaseCommand):
     self.config = self.get_config()
     print("AtlasTestRunner config:")
     print(self.config)
-    AtlasTestRunner(self.config).run()
+    AtlasTestRunner(self.config).run_all_tests()
+
+
+class RunSingleTest(BaseCommand):
+  def run(self, edit):
+    self.config = self.get_config()
+    print("AtlasTestRunner config:")
+    print(self.config)
+    AtlasTestRunner(self.config).run_single_test()
 
