@@ -1,7 +1,9 @@
 import re
 import webbrowser
-from testFile import TestFile
 
+from exec_cmd  import Exec
+from testFile  import TestFile
+from functools import partial
 
 class RSpecTestFile(TestFile):
 
@@ -24,8 +26,10 @@ class RSpecTestFile(TestFile):
     cmd += " " + self.options()
     cmd += " --out " + tmpfile
     cmd += " " + testfile
-    self.exec_cmd(cmd)
-    webbrowser.open_new_tab("file://%s" % tmpfile)
+    Exec(cmd, then=self.open_browser(tmpfile))
+
+  def open_browser(self, tmpfile):
+    return partial(webbrowser.open_new_tab, "file://" + tmpfile)
 
   def run_all_tests(self):
     self.run(self.path_to_test_file())

@@ -4,7 +4,6 @@ import tempfile
 import commands
 import webbrowser
 
-
 class TestFile(object):
   def __init__(self, config):
     self.config = config
@@ -19,13 +18,6 @@ class TestFile(object):
     tmpfile = tempfile.NamedTemporaryFile(mode="w", prefix="test", suffix='.html', dir=tmpdir, delete=False)
     return tmpfile.name
 
-  def exec_cmd(self, cmd):
-    print("working dir: "+self.config["working_dir"])
-    print(cmd)
-    cmd = "cd "+self.config["working_dir"] + "; " + cmd
-    print(commands.getoutput(cmd))
-    print("\n")
- 
   def set_working_dir(self):
     working_dir = os.getcwd()
 
