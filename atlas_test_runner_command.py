@@ -21,6 +21,9 @@ class BaseCommand(sublime_plugin.TextCommand):
       "file_path":      self.view.file_name(),
       "error_message":  sublime.error_message,
       "message_dialog": sublime.message_dialog,
+      "status_message": sublime.status_message,
+      "set_status":     self.view.set_status,
+      "set_timeout":    sublime.set_timeout,
       "current_line_number": self.current_line_number(),
     }
 

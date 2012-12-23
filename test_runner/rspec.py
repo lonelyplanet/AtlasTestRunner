@@ -26,7 +26,15 @@ class RSpecTestFile(TestFile):
     cmd += " " + self.options()
     cmd += " --out " + tmpfile
     cmd += " " + testfile
-    Exec(cmd, then=self.open_browser(tmpfile))
+    Exec(cmd, 
+         working_dir=self.config["working_dir"], 
+         during=self.status_message,
+         after=self.open_browser(tmpfile))
+
+  def status_message(self):
+    set_status  = self.config["set_status"]
+    set_timeout = self.config["set_timeout"]
+    set_timeout(partial(set_status, "", "running tests..."), 0)
 
   def open_browser(self, tmpfile):
     return partial(webbrowser.open_new_tab, "file://" + tmpfile)
