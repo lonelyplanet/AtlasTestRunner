@@ -1,10 +1,4 @@
 [  
-    {  
-        "keys": ["alt+ctrl+t"], 
-        "command": "run_all_tests"  
-    },
-    {  
-        "keys": ["shift+alt+ctrl+t"], 
-        "command": "run_single_test"  
-    } 
+    {"keys": ["alt+ctrl+t"],       "command": "run_all_tests"},
+    {"keys": ["shift+alt+ctrl+t"], "command": "run_single_test"} 
 ] 

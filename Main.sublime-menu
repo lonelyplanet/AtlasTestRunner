@@ -1,10 +1,13 @@
 [
   {
-    "id":"tools",
-    "children":[
+    "id": "tools",
+    "children": [
       {
-        "caption":"Atlas Test: Run full spec",
-        "command":"atlas_test_runner"
+        "caption": "AtlasTestRunner",
+        "children": [
+          {"caption":"Run All Tests",   "command": "run_all_tests"},
+          {"caption":"Run Single Test", "command": "run_single_test"}
+        ]
       }
     ]
   }

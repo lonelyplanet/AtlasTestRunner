@@ -1,0 +1,9 @@
+[  
+  { "caption": "AtlasTestRunner",
+    "children":
+    [
+      {"caption": "Run all tests",   "command": "run_all_tests"},
+      {"caption": "Run single test", "command": "run_single_test"}
+    ]
+  }
+]
