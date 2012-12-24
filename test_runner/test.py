@@ -2,14 +2,18 @@
 
 import os
 import unittest
+from os.path  import dirname, abspath
 from cucumber import CucumberTestFile
 from rspec    import RSpecTestFile
 from testFile import TestFile
 from jasmine_coffee  import JasmineCoffeeTestFile
 
 
+def plugin_settings_file():
+  return dirname(abspath(__file__))+"/../AtlasTestRunner.sublime-settings"
+
 def get_config():
-  config = eval(open("../AtlasTestRunner.sublime-settings", "r").read())
+  config = eval(open(plugin_settings_file(), "r").read())
   config.pop("working_dir")
   config["file_path"] = "/dummy/file/path"
   return config
