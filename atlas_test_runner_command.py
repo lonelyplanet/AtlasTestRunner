@@ -19,10 +19,8 @@ class BaseCommand(sublime_plugin.TextCommand):
       "rspec_cmd":      settings.get("rspec_cmd"),
       "working_dir":    settings.get("working_dir"),
       "file_path":      self.view.file_name(),
-      "error_message":  sublime.error_message,
-      "message_dialog": sublime.message_dialog,
-      "status_message": sublime.status_message,
       "set_status":     self.view.set_status,
+      "error_message":  sublime.error_message,
       "set_timeout":    sublime.set_timeout,
       "current_line_number": self.current_line_number(),
     }

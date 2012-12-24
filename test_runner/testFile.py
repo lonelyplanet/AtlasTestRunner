@@ -1,8 +1,6 @@
 import re
 import os
 import tempfile
-import commands
-import webbrowser
 
 class TestFile(object):
   def __init__(self, config):

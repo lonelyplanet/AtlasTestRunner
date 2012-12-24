@@ -1,5 +1,3 @@
-import re
-import webbrowser
 from testFile import TestFile
 
 
