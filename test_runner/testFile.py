@@ -19,10 +19,16 @@ class TestFile(object):
     return tmpfile.name
 
   def set_working_dir(self):
+    # default to cwd
     working_dir = os.getcwd()
 
     if self.config.has_key("working_dir"):
+      # working_dir may be an absolute path,
+      # a path relative to $HOME,
+      # or a regex with which to pull a substring from the current file_path
+
       working_dir = self.config["working_dir"]
+      working_dir = working_dir.replace("$HOME", os.environ["HOME"])
 
       if not os.path.exists(working_dir):
         if self.extract_file_path(working_dir):

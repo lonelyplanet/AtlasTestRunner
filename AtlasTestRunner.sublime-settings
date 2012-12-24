@@ -5,5 +5,5 @@
   "cucumber_cmd":   "bundle exec cucumber",
   "rspec_regex":    "(spec/.*_spec.rb)",
   "rspec_cmd":      "bundle exec rspec",
-  "working_dir":    "/Users/david/projects/atlas/atlas"
+  "working_dir":    "$HOME/projects/atlas/atlas"
 }
