@@ -17,7 +17,9 @@ def get_config():
 class TestJasmine(unittest.TestCase):
   def setUp(self):
     global test
-    test = JasmineTestFile(get_config())
+    config = get_config()
+    config["jasmine_regex"] = "atlas/spec/javascripts/(.*_spec).coffee"
+    test = JasmineTestFile(config)
 
   def test_matches(self):
     self.assertTrue(JasmineTestFile.matches("atlas/spec/javascripts/charlie_spec.coffee"))
@@ -31,7 +33,9 @@ class TestJasmine(unittest.TestCase):
 class TestCucumber(unittest.TestCase):
   def setUp(self):
     global test
-    test = CucumberTestFile(get_config())
+    config = get_config()
+    config["cucumber_regex"] = "(features/.*.feature)"
+    test = CucumberTestFile(config)
 
   def test_matches(self):
     self.assertTrue(CucumberTestFile.matches("yet/another/creature.feature"))
@@ -45,7 +49,9 @@ class TestCucumber(unittest.TestCase):
 class TestRSpec(unittest.TestCase):
   def setUp(self):
     global test
-    test = RSpecTestFile(get_config())
+    config = get_config()
+    config["rspec_regex"] = "(spec/.*_spec.rb)"
+    test = RSpecTestFile(config)
 
   def test_matches(self):
     self.assertTrue(RSpecTestFile.matches("spics/and/specs_spec.rb"))
