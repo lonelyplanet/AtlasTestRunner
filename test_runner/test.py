@@ -3,9 +3,9 @@
 import os
 import unittest
 from cucumber import CucumberTestFile
-from jasmine  import JasmineTestFile
 from rspec    import RSpecTestFile
 from testFile import TestFile
+from jasmine_coffee  import JasmineCoffeeTestFile
 
 
 def get_config():
@@ -18,12 +18,12 @@ class TestJasmine(unittest.TestCase):
   def setUp(self):
     global test
     config = get_config()
-    config["jasmine_regex"] = "atlas/spec/javascripts/(.*_spec).coffee"
-    test = JasmineTestFile(config)
+    config["jasmine_coffee_regex"] = "atlas/spec/javascripts/(.*_spec).coffee"
+    test = JasmineCoffeeTestFile(config)
 
   def test_matches(self):
-    self.assertTrue(JasmineTestFile.matches("atlas/spec/javascripts/charlie_spec.coffee"))
-    self.assertFalse(JasmineTestFile.matches("arthur/scargill/loves/his.espresso"))
+    self.assertTrue(JasmineCoffeeTestFile.matches("atlas/spec/javascripts/charlie_spec.coffee"))
+    self.assertFalse(JasmineCoffeeTestFile.matches("arthur/scargill/loves/his.espresso"))
 
   def test_jasmine_path(self):
     test.config["file_path"] = "atlas/spec/javascripts/charlie_spec.coffee"

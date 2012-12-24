@@ -1,8 +1,8 @@
 import re
 from cucumber import CucumberTestFile
-from jasmine  import JasmineTestFile
 from rspec    import RSpecTestFile
 from unknown  import UnknownTestFile
+from jasmine_coffee  import JasmineCoffeeTestFile
 
 
 class AtlasTestRunner(object):
@@ -12,8 +12,8 @@ class AtlasTestRunner(object):
   def current_test(self):
     file_path = self.config["file_path"]
 
-    if JasmineTestFile.matches(file_path):
-      return JasmineTestFile(self.config)
+    if JasmineCoffeeTestFile.matches(file_path):
+      return JasmineCoffeeTestFile(self.config)
 
     if CucumberTestFile.matches(file_path):
       return CucumberTestFile(self.config)

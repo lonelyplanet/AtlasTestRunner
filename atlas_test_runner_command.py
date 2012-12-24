@@ -11,8 +11,8 @@ class BaseCommand(sublime_plugin.TextCommand):
     # and we want to keep all sublime-specific classes outside the test_runner
     # (mainly to aid testing)
     return {
-      "jasmine_url":    settings.get("jasmine_url"),
-      "jasmine_regex":  settings.get("jasmine_regex"),
+      "jasmine_coffee_url":    settings.get("jasmine_coffee_url"),
+      "jasmine_coffee_regex": settings.get("jasmine_coffee_regex"),
       "cucumber_regex": settings.get("cucumber_regex"),
       "cucumber_cmd":   settings.get("cucumber_cmd"),
       "rspec_regex":    settings.get("rspec_regex"),
