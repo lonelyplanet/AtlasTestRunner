@@ -9,7 +9,7 @@ class TestFile(object):
     self.config = config
     self.set_working_dir()
 
-  def match(self, pat):
+  def extract_file_path(self, pat):
     m = re.search(pat, self.config["file_path"])
     return (m and m.groups()[0])    
 
@@ -25,8 +25,8 @@ class TestFile(object):
       working_dir = self.config["working_dir"]
 
       if not os.path.exists(working_dir):
-        if self.match(working_dir):
-          working_dir = self.match(working_dir)
+        if self.extract_file_path(working_dir):
+          working_dir = self.extract_file_path(working_dir)
         else:
           working_dir = os.getcwd()
 

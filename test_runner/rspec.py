@@ -12,7 +12,7 @@ class RSpecTestFile(TestFile):
     return re.search("_spec\.rb$", file_path)
 
   def path_to_test_file(self):
-    return self.match(self.config["rspec_regex"])
+    return self.extract_file_path(self.config["rspec_regex"])
 
   def command(self):
     return self.config["rspec_cmd"]

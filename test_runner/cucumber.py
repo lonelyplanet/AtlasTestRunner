@@ -10,7 +10,7 @@ class CucumberTestFile(RSpecTestFile):
     return re.search("\.feature$", file_path)
 
   def path_to_test_file(self):
-    return self.match(self.config["cucumber_regex"])
+    return self.extract_file_path(self.config["cucumber_regex"])
 
   def command(self):
     return self.config["cucumber_cmd"]

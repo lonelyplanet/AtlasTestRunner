@@ -10,7 +10,7 @@ class JasmineTestFile(TestFile):
     return re.search("_spec\.coffee$", file_path)
 
   def jasmine_path(self):
-    m = self.match(self.config["jasmine_regex"])
+    m = self.extract_file_path(self.config["jasmine_regex"])
     return (m and m+".js")
 
   def run_all_tests(self):
