@@ -19,7 +19,7 @@ Although written to support the LP SPP project, it should be configurable for ot
 
 To install (OS X or Linux), clone this repo into your Sublime Text 2 `Packages` directory:
 ```
-    git clone https://github.com/lonelyplanet/atlas_test_runner.git
+    git clone https://github.com/lonelyplanet/AtlasTestRunner.git
 ```
 
 * Run All Tests (OS X: `⌘-⌥-J`, Linux: `Ctrl-Alt-J`)
