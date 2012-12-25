@@ -4,20 +4,17 @@ import os
 import unittest
 from cucumber import CucumberTestFile
 from jasmine  import JasmineTestFile
+from rspec    import RSpecTestFile
 from testFile import TestFile
 
 
 def get_config():
-  return {
-    "jasmine_url":    "http://atlas.local/runspec/spec/",
-    "jasmine_regex":  "atlas/spec/javascripts/(.*_spec).coffee",
-    "cucumber_regex": "(.*/features/.*.feature)",
-    "cucumber_cmd":   "bundle exec cucumber",
-    "file_path":      "/dummy/file/path"
-  }
+  config = eval(open("../AtlasTestRunner.sublime-settings", "r").read())
+  config.pop("working_dir")
+  config["file_path"] = "/dummy/file/path"
+  return config
 
-
-class TestJasmineTestFile(unittest.TestCase):
+class TestJasmine(unittest.TestCase):
   def setUp(self):
     global test_file
     test_file = JasmineTestFile(get_config())
@@ -31,7 +28,7 @@ class TestJasmineTestFile(unittest.TestCase):
     self.assertEqual(test_file.jasmine_path(), "charlie_spec.js")
 
 
-class TestCucumberTestFile(unittest.TestCase):
+class TestCucumber(unittest.TestCase):
   def setUp(self):
     global test_file
     test_file = CucumberTestFile(get_config())
@@ -42,7 +39,21 @@ class TestCucumberTestFile(unittest.TestCase):
 
   def test_feature_path(self):
     test_file.config["file_path"] = "/a/features/ui/delete_poi.feature"
-    self.assertEqual(test_file.feature_path(), "/a/features/ui/delete_poi.feature")
+    self.assertEqual(test_file.feature_path(), "features/ui/delete_poi.feature")
+
+
+class TestRSpec(unittest.TestCase):
+  def setUp(self):
+    global test_file
+    test_file = RSpecTestFile(get_config())
+
+  def test_matches(self):
+    self.assertTrue(RSpecTestFile.matches("spics/and/specs_spec.rb"))
+    self.assertFalse(RSpecTestFile.matches("rhymes/with_flex.rb"))
+
+  def test_spec_path(self):
+    test_file.config["file_path"] = "/a/spec/hoi/polloi_spec.rb"
+    self.assertEqual(test_file.spec_path(), "spec/hoi/polloi_spec.rb")
 
 
 class TestWorkingDirectory(unittest.TestCase):

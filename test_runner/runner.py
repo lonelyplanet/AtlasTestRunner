@@ -1,6 +1,7 @@
 import re
 from cucumber import CucumberTestFile
-from jasmine import JasmineTestFile
+from jasmine  import JasmineTestFile
+from rspec    import RSpecTestFile
 
 
 class AtlasTestRunner(object):
@@ -16,6 +17,9 @@ class AtlasTestRunner(object):
 
     elif CucumberTestFile.matches(file_path):
       CucumberTestFile(self.config).run()
+
+    elif RSpecTestFile.matches(file_path):
+      RSpecTestFile(self.config).run()
 
     else:
       self.config["error_message"]("unknown type of testfile:\n\n"+file_path)
