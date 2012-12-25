@@ -8,6 +8,8 @@ from rspec    import RSpecTestFile
 from testFile import TestFile
 from jasmine_coffee  import JasmineCoffeeTestFile
 
+def fixture_path(fname):
+  return dirname(abspath(__file__))+"/fixtures/"+fname
 
 def plugin_settings_file():
   return dirname(abspath(__file__))+"/../AtlasTestRunner.sublime-settings"
@@ -17,6 +19,21 @@ def get_config():
   config.pop("working_dir")
   config["file_path"] = "/dummy/file/path"
   return config
+
+class TestJasmineSingle(unittest.TestCase):
+  def setUp(self):
+    global test
+    config = get_config()
+    config["file_path"] = fixture_path("poi_spec.coffee")
+    test = JasmineCoffeeTestFile(config)
+
+  def testCurrentSpec(self):
+    test.config["current_line_number"] = 29
+    self.assertEqual(test.current_spec(), "poi #new when created locally assigns the GUID to the ID")
+
+  def testIndentedCurrentSpec(self):
+    test.config["current_line_number"] = 61
+    self.assertEqual(test.current_spec(), "poi hasNotes when notes is 'the notes' is truthy")
 
 class TestJasmine(unittest.TestCase):
   def setUp(self):
