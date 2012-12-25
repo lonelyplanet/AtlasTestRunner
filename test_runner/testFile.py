@@ -6,6 +6,10 @@ import webbrowser
 
 
 class TestFile(object):
+  def __init__(self, config):
+    self.config = config
+    self.set_working_dir()
+
   def match(self, pat):
     m = re.search(pat, self.config["file_path"])
     return (m and m.groups()[0])    
@@ -16,15 +20,24 @@ class TestFile(object):
     return tmpfile.name
 
   def exec_cmd(self, cmd):
+    print("working dir: "+self.config["working_dir"])
     print(cmd)
-    cmd = "cd "+self.rails_root() + "; " + cmd
+    cmd = "cd "+self.config["working_dir"] + "; " + cmd
     print(commands.getoutput(cmd))
     print("\n")
  
-  def rails_root(self):
-    m = re.search("(.*/atlas).*", os.getcwd())
-    if not m:
-      return ""
-    return m.groups()[0]
+  def set_working_dir(self):
+    working_dir = os.getcwd()
+
+    if self.config.has_key("working_dir"):
+      working_dir = self.config["working_dir"]
+
+      if not os.path.exists(working_dir):
+        if self.match(working_dir):
+          working_dir = self.match(working_dir)
+        else:
+          working_dir = os.getcwd()
+
+    self.config["working_dir"] = working_dir
 
 

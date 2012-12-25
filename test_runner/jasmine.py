@@ -5,6 +5,7 @@ from testFile import TestFile
 class JasmineTestFile(TestFile):
   def __init__(self, config):
     self.config = config
+    TestFile.__init__(self, config)
 
   def jasmine_path(self):
     m = self.match(self.config["jasmine_regex"])

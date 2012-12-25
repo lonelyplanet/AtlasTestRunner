@@ -5,6 +5,7 @@ from testFile import TestFile
 class CucumberTestFile(TestFile):
   def __init__(self, config):
     self.config = config
+    TestFile.__init__(self, config)
 
   def feature_path(self):
     return self.match(self.config["cucumber_regex"])
@@ -12,7 +13,7 @@ class CucumberTestFile(TestFile):
   def cucumber_cmd(self):
     cmd   = " " + self.config["cucumber_cmd"]
     opts  = " --format html"
-    opts += " --require " + self.rails_root()+"/features/support/atlas"
+    opts += " --require " + self.config["working_dir"]+"/features/support/atlas"
     return "%(cmd)s %(opts)s " % locals()
 
   def run(self):
