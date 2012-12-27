@@ -21,15 +21,14 @@ class RSpecTestFile(TestFile):
     return "--format html"
 
   def run(self, testfile):
-    tmpfile = self.mktmpfile()
     cmd  = self.command()
     cmd += " " + self.options()
-    cmd += " --out " + tmpfile
+    cmd += " --out " + self.tmpfile
     cmd += " " + testfile
     Exec(cmd, 
          working_dir=self.config["working_dir"], 
          during=self.status_message,
-         after=self.open_browser(tmpfile))
+         after=self.open_browser(self.tmpfile))
 
   def status_message(self):
     set_status  = self.config["set_status"]

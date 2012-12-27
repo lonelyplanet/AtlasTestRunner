@@ -20,10 +20,22 @@ class BaseCommand(sublime_plugin.TextCommand):
       "working_dir":    settings.get("working_dir"),
       "file_path":      self.view.file_name(),
       "set_status":     self.view.set_status,
+      "erase_setting":  self.erase_setting,
+      "set_setting":    self.set_setting,
       "error_message":  sublime.error_message,
       "set_timeout":    sublime.set_timeout,
-      "current_line_number": self.current_line_number(),
+      "current_line_number": self.current_line_number()
     }
+
+  def erase_setting(self, setting):
+    settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
+    settings.erase(setting)
+    sublime.save_settings("AtlasTestRunner.sublime-settings")
+
+  def set_setting(self, name, value):
+    settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
+    settings.set(name, value)
+    sublime.save_settings("AtlasTestRunner.sublime-settings")
 
   def current_line_number(self):
     char_under_cursor = self.view.sel()[0].a

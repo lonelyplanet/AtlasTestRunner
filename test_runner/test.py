@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import os
+import tempfile
 import unittest
+
 from os.path  import dirname, abspath
 from cucumber import CucumberTestFile
 from rspec    import RSpecTestFile
@@ -14,11 +16,34 @@ def fixture_path(fname):
 def plugin_settings_file():
   return dirname(abspath(__file__))+"/../AtlasTestRunner.sublime-settings"
 
+def dummy_fn(x): return None
+def dummy_fn2(x, y): return None
+
 def get_config():
   config = eval(open(plugin_settings_file(), "r").read())
   config.pop("working_dir")
   config["file_path"] = "/dummy/file/path"
+  config["erase_setting"] = dummy_fn
+  config["set_setting"]   = dummy_fn2
   return config
+
+def mktmpfile():
+  tmpdir  = tempfile.mkdtemp(prefix="AtlasTests")
+  tmpfile = tempfile.NamedTemporaryFile(mode="w", prefix="test", suffix='.html', dir=tmpdir, delete=False)
+  return tmpfile.name
+
+
+class TestTempFiles(unittest.TestCase):
+  def setUp(self):
+    global test
+    config = get_config()
+    config["previous_tmpfile"] = mktmpfile()
+    self.tmpdir = os.path.dirname(config["previous_tmpfile"])
+    test = TestFile(config)
+
+  def testPreviousTempFileDeleted(self):
+    self.assertFalse(os.path.exists(self.tmpdir))
+
 
 class TestJasmineSingle(unittest.TestCase):
   def setUp(self):
