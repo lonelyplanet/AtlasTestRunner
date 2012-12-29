@@ -24,7 +24,7 @@ class BaseCommand(sublime_plugin.TextCommand):
       "set_setting":    self.set_setting,
       "error_message":  sublime.error_message,
       "set_timeout":    sublime.set_timeout,
-      "current_line_number": self.current_line_number()
+      "line_number":    self.line_number()
     }
 
   def erase_setting(self, setting):
@@ -37,7 +37,7 @@ class BaseCommand(sublime_plugin.TextCommand):
     settings.set(name, value)
     sublime.save_settings("AtlasTestRunner.sublime-settings")
 
-  def current_line_number(self):
+  def line_number(self):
     char_under_cursor = self.view.sel()[0].a
     return self.view.rowcol(char_under_cursor)[0] + 1
 

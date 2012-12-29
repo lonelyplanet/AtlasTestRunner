@@ -53,11 +53,11 @@ class TestJasmineSingle(unittest.TestCase):
     test = JasmineCoffeeTestFile(config)
 
   def testCurrentSpec(self):
-    test.config["current_line_number"] = 29
+    test.config["line_number"] = 29
     self.assertEqual(test.current_spec(), "poi #new when created locally assigns the GUID to the ID")
 
   def testIndentedCurrentSpec(self):
-    test.config["current_line_number"] = 61
+    test.config["line_number"] = 61
     self.assertEqual(test.current_spec(), "poi hasNotes when notes is 'the notes' is truthy")
 
 class TestJasmine(unittest.TestCase):

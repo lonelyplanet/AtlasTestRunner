@@ -42,5 +42,5 @@ class RSpecTestFile(TestFile):
     self.run(self.path_to_test_file())
 
   def run_single_test(self):
-    self.run(self.path_to_test_file() + ":" + str(self.config["current_line_number"]))
+    self.run(self.path_to_test_file() + ":" + str(self.config["line_number"]))
 

@@ -19,7 +19,7 @@ class JasmineCoffeeTestFile(TestFile):
     return self.config["jasmine_coffee_url"] + self.jasmine_path()
 
   def current_spec(self):
-    return current_spec(self.config["file_path"], self.config["current_line_number"])
+    return current_spec(self.config["file_path"], self.config["line_number"])
 
   def run_all_tests(self):
     webbrowser.open_new_tab(self.build_url())
