@@ -6,12 +6,10 @@ from test_runner.runner import AtlasTestRunner
 class BaseCommand(sublime_plugin.TextCommand):
   def get_config(self):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
-    # It's a pain having to copy these settings manually.
-    # But sublime.settings offers no way to iterate over its' keys,
-    # and we want to keep all sublime-specific classes outside the test_runner
-    # (mainly to aid testing)
-    return {
-      "jasmine_coffee_url":    settings.get("jasmine_coffee_url"),
+    # It's a pain having to copy these settings manually,
+    # but sublime.settings has no way to iterate over its' keys.
+    config = {
+      "jasmine_coffee_url":   settings.get("jasmine_coffee_url"),
       "jasmine_coffee_regex": settings.get("jasmine_coffee_regex"),
       "cucumber_regex": settings.get("cucumber_regex"),
       "cucumber_cmd":   settings.get("cucumber_cmd"),
@@ -26,6 +24,9 @@ class BaseCommand(sublime_plugin.TextCommand):
       "set_timeout":    sublime.set_timeout,
       "line_number":    self.line_number()
     }
+    print("AtlasTestRunner config:")
+    print(config)
+    return config
 
   def erase_setting(self, setting):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
@@ -44,16 +45,11 @@ class BaseCommand(sublime_plugin.TextCommand):
 
 class RunAllTests(BaseCommand):
   def run(self, edit):
-    self.config = self.get_config()
-    print("AtlasTestRunner config:")
-    print(self.config)
-    AtlasTestRunner(self.config).run_all_tests()
+    AtlasTestRunner(self.get_config()).run_all_tests()
 
 
 class RunSingleTest(BaseCommand):
   def run(self, edit):
-    self.config = self.get_config()
-    print("AtlasTestRunner config:")
-    print(self.config)
-    AtlasTestRunner(self.config).run_single_test()
+    AtlasTestRunner(self.get_config()).run_single_test()
+
 
