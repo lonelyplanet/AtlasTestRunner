@@ -42,14 +42,22 @@ class BaseCommand(sublime_plugin.TextCommand):
     char_under_cursor = self.view.sel()[0].a
     return self.view.rowcol(char_under_cursor)[0] + 1
 
+  def view_is_saved(self):
+    if not self.view.is_dirty():
+      return True
+    sublime.message_dialog("Please save this test before running.")
+    return False
+
 
 class RunAllTests(BaseCommand):
   def run(self, edit):
-    AtlasTestRunner(self.get_config()).run_all_tests()
+    if self.view_is_saved():
+      AtlasTestRunner(self.get_config()).run_all_tests()
 
 
 class RunSingleTest(BaseCommand):
   def run(self, edit):
-    AtlasTestRunner(self.get_config()).run_single_test()
+    if self.view_is_saved():
+      AtlasTestRunner(self.get_config()).run_single_test()
 
 
