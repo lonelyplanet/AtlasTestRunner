@@ -54,11 +54,11 @@ class TestJasmineSingle(unittest.TestCase):
 
   def testCurrentSpec(self):
     test.config["line_number"] = 29
-    self.assertEqual(test.current_spec(), "poi #new when created locally assigns the GUID to the ID")
+    self.assertEqual(test.current_spec_description(), "poi #new when created locally assigns the GUID to the ID")
 
   def testIndentedCurrentSpec(self):
     test.config["line_number"] = 61
-    self.assertEqual(test.current_spec(), "poi hasNotes when notes is 'the notes' is truthy")
+    self.assertEqual(test.current_spec_description(), "poi hasNotes when notes is 'the notes' is truthy")
 
 class TestJasmine(unittest.TestCase):
   def setUp(self):
