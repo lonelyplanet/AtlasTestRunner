@@ -15,7 +15,7 @@ class RSpecTestFile(TestFile):
     return self.extract_file_path(self.config["rspec_regex"])
 
   def command(self):
-    return self.config["rspec_cmd"]
+    return self.config["command_prefix"] + self.config["rspec_cmd"]
 
   def options(self):
     return "--format html"
@@ -25,8 +25,8 @@ class RSpecTestFile(TestFile):
     cmd += " " + self.options()
     cmd += " --out " + self.tmpfile
     cmd += " " + testfile
-    Exec(cmd, 
-         working_dir=self.config["working_dir"], 
+    Exec(cmd,
+         working_dir=self.config["working_dir"],
          during=self.status_message,
          after=self.open_browser(self.tmpfile))
 

@@ -1,3 +1,4 @@
+import os
 import sublime
 import sublime_plugin
 from test_runner.runner import AtlasTestRunner
@@ -22,11 +23,18 @@ class BaseCommand(sublime_plugin.TextCommand):
       "set_setting":    self.set_setting,
       "error_message":  sublime.error_message,
       "set_timeout":    sublime.set_timeout,
-      "line_number":    self.line_number()
+      "line_number":    self.line_number(),
+      "command_prefix": self.command_prefix()
     }
     print("AtlasTestRunner config:")
     print(config)
     return config
+
+  def command_prefix(self):
+    rvm_prefix = os.path.expanduser("~/.rvm/bin/rvm-auto-ruby")
+    if os.path.exists(rvm_prefix):
+      return rvm_prefix + " -S "
+    return ""
 
   def erase_setting(self, setting):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
