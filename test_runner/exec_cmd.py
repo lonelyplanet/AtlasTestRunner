@@ -57,6 +57,7 @@ class Exec(object):
         if message.startswith(":"):
           message = message[1:]
         message = message.strip()
-        self.config["error_message"](message)
+        if not "deprecated" in message:
+          self.config["error_message"](message)
       except Exception as ex:
         print(ex)
