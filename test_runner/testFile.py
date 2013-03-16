@@ -23,7 +23,7 @@ class TestFile(object):
     self.config['set_setting']('previous_tempfile', self.tmpfile)
 
   def clear_previous_tempfiles(self):
-    if self.config.has_key('previous_tmpfile'):
+    if 'previous_tmpfile' in self.config.keys():
       tmpfile = self.config['previous_tmpfile']
       tmpdir = os.path.dirname(tmpfile)
       if os.path.exists(tmpdir):
@@ -35,7 +35,7 @@ class TestFile(object):
     # default to cwd
     working_dir = os.getcwd()
 
-    if self.config.has_key("working_dir"):
+    if 'working_dir' in self.config.keys():
       # working_dir may be an absolute path,
       # a path relative to $HOME,
       # or a regex with which to pull a substring from the current file_path

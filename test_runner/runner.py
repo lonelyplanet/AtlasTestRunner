@@ -1,9 +1,14 @@
 import re
-from cucumber import CucumberTestFile
-from rspec    import RSpecTestFile
-from unknown  import UnknownTestFile
-from jasmine_coffee  import JasmineCoffeeTestFile
+import sys
+from os.path import dirname, abspath
 
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
+
+from AtlasTestRunner.test_runner.cucumber import CucumberTestFile
+from AtlasTestRunner.test_runner.rspec    import RSpecTestFile
+from AtlasTestRunner.test_runner.unknown  import UnknownTestFile
+from AtlasTestRunner.test_runner.jasmine_coffee  import JasmineCoffeeTestFile
 
 class AtlasTestRunner(object):
   def __init__(self, config):

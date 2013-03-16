@@ -1,8 +1,14 @@
 import os
+import sys
 import sublime
 import sublime_plugin
-from test_runner.runner import AtlasTestRunner
 
+from os.path import dirname, abspath
+
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
+
+from AtlasTestRunner.test_runner.runner import AtlasTestRunner
 
 class BaseCommand(sublime_plugin.TextCommand):
   def get_config(self):

@@ -3,12 +3,16 @@
 import os
 import tempfile
 import unittest
+import sys
+from os.path import dirname, abspath
 
-from os.path  import dirname, abspath
-from cucumber import CucumberTestFile
-from rspec    import RSpecTestFile
-from testFile import TestFile
-from jasmine_coffee  import JasmineCoffeeTestFile
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
+
+from AtlasTestRunner.test_runner.cucumber import CucumberTestFile
+from AtlasTestRunner.test_runner.rspec    import RSpecTestFile
+from AtlasTestRunner.test_runner.testFile import TestFile
+from AtlasTestRunner.test_runner.jasmine_coffee  import JasmineCoffeeTestFile
 
 def fixture_path(fname):
   return dirname(abspath(__file__))+"/fixtures/"+fname

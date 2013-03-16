@@ -1,6 +1,11 @@
 import re
-from rspec import RSpecTestFile
+import sys
+from os.path import dirname, abspath
 
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
+
+from AtlasTestRunner.test_runner.rspec import RSpecTestFile
 
 class CucumberTestFile(RSpecTestFile):
 

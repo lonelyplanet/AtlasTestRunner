@@ -2,9 +2,16 @@ import re
 import os
 
 from time import sleep
-from thread import start_new_thread
 from subprocess import Popen, PIPE
 
+try:
+  # Sublime Text 2
+  from thread import start_new_thread
+except ImportError:
+  # Sublime Text 3
+  from threading import Thread
+  def start_new_thread(fn, args):
+    Thread(target=fn, args=args).start()
 
 # see: http://stackoverflow.com/questions/636561/how-can-i-run-an-external-command-asynchronously-from-python
 class Exec(object):
@@ -27,7 +34,7 @@ class Exec(object):
   def handle_stderr(self, stderr):
     while True:
       data = os.read(stderr.fileno(), 128*1024)
-      if data != "":
+      if data and data != "":
         print(data)
       else:
         stderr.close()

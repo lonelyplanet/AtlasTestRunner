@@ -1,9 +1,13 @@
 import re
 import webbrowser
+import sys
+from os.path import dirname, abspath
 
-from testFile import TestFile
-from coffee_spec_matcher import current_spec_description
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
 
+from AtlasTestRunner.test_runner.testFile import TestFile
+from AtlasTestRunner.test_runner.coffee_spec_matcher import current_spec_description
 
 class JasmineCoffeeTestFile(TestFile):
 

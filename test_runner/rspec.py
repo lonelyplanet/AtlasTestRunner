@@ -1,9 +1,14 @@
 import re
 import webbrowser
-
-from exec_cmd  import Exec
-from testFile  import TestFile
+import sys
 from functools import partial
+from os.path   import dirname, abspath
+
+# for Sublime Text 2
+sys.path.append(dirname(abspath(__file__))+"/../..")
+
+from AtlasTestRunner.test_runner.exec_cmd  import Exec
+from AtlasTestRunner.test_runner.testFile  import TestFile
 
 class RSpecTestFile(TestFile):
 
