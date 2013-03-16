@@ -33,7 +33,8 @@ class RSpecTestFile(TestFile):
     Exec(cmd,
          working_dir=self.config["working_dir"],
          during=self.status_message,
-         after=self.open_browser(self.tmpfile))
+         after=self.open_browser(self.tmpfile),
+         config=self.config)
 
   def status_message(self):
     set_status  = self.config["set_status"]

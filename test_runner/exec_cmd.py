@@ -15,9 +15,11 @@ except ImportError:
 
 # see: http://stackoverflow.com/questions/636561/how-can-i-run-an-external-command-asynchronously-from-python
 class Exec(object):
-  def __init__(self, cmd, working_dir=None, during=None, after=None):
+  def __init__(self, cmd, working_dir=None, during=None, after=None, config=None):
     print("cmd: " + cmd)
     print("working_dir: " + str(working_dir))
+    self.config = config
+    self.error_count = 0
     proc = Popen([cmd], cwd=working_dir, shell=True, stderr=PIPE)
     start_new_thread(self.handle_proc, (proc, during, after))
     start_new_thread(self.handle_stderr, (proc.stderr,))
@@ -36,6 +38,24 @@ class Exec(object):
       data = os.read(stderr.fileno(), 128*1024)
       if data and data != "":
         print(data)
+        self.show_error(data)
       else:
         stderr.close()
         return
+
+  def show_error(self, text):
+    if not self.config: return
+    # This might be expressed a little better. However...
+    # 1st time through, stderr holds the location in code
+    # 2nd time through, stderr holds the stacktrace
+    # and only the stacktrace holds a meaningful error message
+    self.error_count += 1
+    if self.error_count == 2:
+      try:
+        message = text.split("\n")[0]
+        if message.startswith(":"):
+          message = message[1:]
+        message = message.strip()
+        self.config["error_message"](message)
+      except Exception as ex:
+        print(ex)
