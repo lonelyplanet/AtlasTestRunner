@@ -3,10 +3,10 @@ import sys
 import sublime
 import sublime_plugin
 
-from os.path import dirname, abspath
+from os.path import dirname
 
 # for Sublime Text 2
-sys.path.append(dirname(abspath(__file__))+"/../..")
+sys.path.append(dirname(__file__)+"/../")
 
 from AtlasTestRunner.test_runner.runner import AtlasTestRunner
 

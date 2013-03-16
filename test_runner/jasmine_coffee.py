@@ -1,10 +1,10 @@
 import re
 import webbrowser
 import sys
-from os.path import dirname, abspath
+from os.path import dirname
 
 # for Sublime Text 2
-sys.path.append(dirname(abspath(__file__))+"/../..")
+sys.path.append(dirname(__file__)+"/../../")
 
 from AtlasTestRunner.test_runner.testFile import TestFile
 from AtlasTestRunner.test_runner.coffee_spec_matcher import current_spec_description

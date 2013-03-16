@@ -2,10 +2,10 @@ import re
 import webbrowser
 import sys
 from functools import partial
-from os.path   import dirname, abspath
+from os.path   import dirname
 
 # for Sublime Text 2
-sys.path.append(dirname(abspath(__file__))+"/../..")
+sys.path.append(dirname(__file__)+"/../../")
 
 from AtlasTestRunner.test_runner.exec_cmd  import Exec
 from AtlasTestRunner.test_runner.testFile  import TestFile

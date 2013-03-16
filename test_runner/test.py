@@ -4,10 +4,10 @@ import os
 import tempfile
 import unittest
 import sys
-from os.path import dirname, abspath
+from os.path import dirname
 
 # for Sublime Text 2
-sys.path.append(dirname(abspath(__file__))+"/../..")
+sys.path.append(dirname(__file__)+"/../../")
 
 from AtlasTestRunner.test_runner.cucumber import CucumberTestFile
 from AtlasTestRunner.test_runner.rspec    import RSpecTestFile
@@ -15,10 +15,10 @@ from AtlasTestRunner.test_runner.testFile import TestFile
 from AtlasTestRunner.test_runner.jasmine_coffee  import JasmineCoffeeTestFile
 
 def fixture_path(fname):
-  return dirname(abspath(__file__))+"/fixtures/"+fname
+  return dirname(__file__)+"/fixtures/"+fname
 
 def plugin_settings_file():
-  return dirname(abspath(__file__))+"/../AtlasTestRunner.sublime-settings"
+  return dirname(__file__)+"/../AtlasTestRunner.sublime-settings"
 
 def dummy_fn(x): return None
 def dummy_fn2(x, y): return None
