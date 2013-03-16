@@ -2,7 +2,8 @@ import re
 import os
 import sys
 
-from time import sleep
+from time       import sleep
+from os.path    import dirname
 from subprocess import Popen, PIPE
 
 try:
@@ -17,21 +18,23 @@ except ImportError:
 # see: http://stackoverflow.com/questions/636561/how-can-i-run-an-external-command-asynchronously-from-python
 class Exec(object):
   def __init__(self, cmd, working_dir=None, during=None, after=None, config=None):
-    print("cmd: " + cmd)
-    print("working_dir: " + str(working_dir))
+    print("running cmd: " + cmd)
+    print("working dir: " + str(working_dir))
     self.config = config
+    self.during = during
+    self.after  = after
     self.error_count = 0
     proc = Popen([cmd], cwd=working_dir, shell=True, stderr=PIPE)
-    start_new_thread(self.handle_proc, (proc, during, after))
+    start_new_thread(self.handle_proc, (proc,))
     start_new_thread(self.handle_stderr, (proc.stderr,))
 
-  def handle_proc(self, proc, during, after):
+  def handle_proc(self, proc):
     while proc:
       sleep(1)
-      if during: during()
+      if self.during: self.during()
       retcode = proc.poll()
       if retcode is not None:
-        if after: after()
+        if self.after: self.after()
         return
 
   def handle_stderr(self, stderr):

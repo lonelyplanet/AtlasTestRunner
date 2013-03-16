@@ -1,14 +1,16 @@
 import re
-import webbrowser
 import sys
+import webbrowser
+
 from functools import partial
 from os.path   import dirname
 
 # for Sublime Text 2
 sys.path.append(dirname(__file__)+"/../../")
 
-from AtlasTestRunner.test_runner.exec_cmd  import Exec
-from AtlasTestRunner.test_runner.testFile  import TestFile
+from AtlasTestRunner.test_runner.exec_cmd import Exec
+from AtlasTestRunner.test_runner.testFile import TestFile
+from AtlasTestRunner.test_runner.spinner  import StatusSpinner
 
 class RSpecTestFile(TestFile):
 
@@ -26,23 +28,25 @@ class RSpecTestFile(TestFile):
     return "--format html"
 
   def run(self, testfile):
+    self.set_status  = self.config["set_status"]
+    self.set_timeout = self.config["set_timeout"]
+    self.spinner     = StatusSpinner()
     cmd  = self.command()
     cmd += " " + self.options()
     cmd += " --out " + self.tmpfile
     cmd += " " + testfile
     Exec(cmd,
          working_dir=self.config["working_dir"],
-         during=self.status_message,
-         after=self.open_browser(self.tmpfile),
+         during=self.during,
+         after=self.after,
          config=self.config)
 
-  def status_message(self):
-    set_status  = self.config["set_status"]
-    set_timeout = self.config["set_timeout"]
-    set_timeout(partial(set_status, "", "running tests..."), 0)
+  def during(self):
+    self.set_timeout(partial(self.set_status, "AtlasTestRunner", "running tests:"+self.spinner.status()), 0)
 
-  def open_browser(self, tmpfile):
-    return partial(webbrowser.open_new_tab, "file://" + tmpfile)
+  def after(self):
+    self.set_timeout(partial(self.set_status, "AtlasTestRunner", ""), 0)
+    self.set_timeout(partial(webbrowser.open_new_tab, "file://" + self.tmpfile), 0)
 
   def run_all_tests(self):
     self.run(self.path_to_test_file())
