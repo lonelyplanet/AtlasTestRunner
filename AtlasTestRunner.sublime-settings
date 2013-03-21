@@ -3,6 +3,5 @@
   "jasmine_coffee_regex": "atlas/spec/javascripts/(.*_spec).coffee",
   "cucumber_regex":       "(features/.*.feature)",
   "cucumber_cmd":         "bundle exec cucumber",
-  "rspec_regex":          "(spec/.*_spec.rb)",
-  "rspec_cmd":            "bundle exec rspec"
+  "rspec_regex":          "(spec/.*_spec.rb)"
 }

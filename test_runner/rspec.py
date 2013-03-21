@@ -22,7 +22,7 @@ class RSpecTestFile(TestFile):
     return self.extract_file_path(self.config["rspec_regex"])
 
   def command(self):
-    return self.config["command_prefix"] + self.config["rspec_cmd"]
+    return self.config["command_prefix"] + "rspec"
 
   def options(self):
     return "--format html"
