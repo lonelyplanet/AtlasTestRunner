@@ -22,7 +22,7 @@ class BaseCommand(sublime_plugin.TextCommand):
       "cucumber_cmd":   settings.get("cucumber_cmd"),
       "rspec_regex":    settings.get("rspec_regex"),
       "rspec_cmd":      settings.get("rspec_cmd"),
-      "working_dir":    settings.get("working_dir"),
+      "working_dir":    self.root_directory(),
       "file_path":      self.view.file_name(),
       "set_status":     self.view.set_status,
       "erase_setting":  self.erase_setting,
@@ -35,6 +35,12 @@ class BaseCommand(sublime_plugin.TextCommand):
     print("AtlasTestRunner config:")
     print(config)
     return config
+
+  def root_directory(self):
+    try:
+      return sublime.active_window().project_data()['folders'][0]['path']
+    except:
+      return sublime.active_window().folders()[0]
 
   def command_prefix(self):
     rvm_prefix = os.path.expanduser("~/.rvm/bin/rvm-auto-ruby")

@@ -41,7 +41,6 @@ class TestFile(object):
       # or a regex with which to pull a substring from the current file_path
 
       working_dir = self.config["working_dir"]
-      working_dir = working_dir.replace("$HOME", os.environ["HOME"])
 
       if not os.path.exists(working_dir):
         if self.extract_file_path(working_dir):
