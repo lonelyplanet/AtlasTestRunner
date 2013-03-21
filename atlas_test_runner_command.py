@@ -54,10 +54,15 @@ class BaseCommand(sublime_plugin.TextCommand):
       return sublime.active_window().folders()[0]
 
   def command_prefix(self):
+    prefix = ""
     rvm_prefix = os.path.expanduser("~/.rvm/bin/rvm-auto-ruby")
     if os.path.exists(rvm_prefix):
-      return rvm_prefix + " -S "
-    return ""
+      prefix = rvm_prefix + " -S "
+    
+    if os.path.exists(self.root_directory()+"/Gemfile"):
+      prefix += "bundle exec "
+
+    return prefix
 
   def erase_setting(self, setting):
     settings = sublime.load_settings("AtlasTestRunner.sublime-settings")
