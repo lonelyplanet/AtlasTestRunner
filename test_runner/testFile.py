@@ -5,7 +5,6 @@ import tempfile
 class TestFile(object):
   def __init__(self, config):
     self.config = config
-    self.set_working_dir()
     self.setup_tmpfile()
 
   def extract_file_path(self, pat):
@@ -30,24 +29,3 @@ class TestFile(object):
         os.system("rm -rf "+tmpdir)
       self.config.pop('previous_tmpfile')
       self.config['fn']['erase_setting']('previous_tmpfile')
-
-  def set_working_dir(self):
-    # default to cwd
-    working_dir = os.getcwd()
-
-    if 'working_dir' in self.config.keys():
-      # working_dir may be an absolute path,
-      # a path relative to $HOME,
-      # or a regex with which to pull a substring from the current file_path
-
-      working_dir = self.config["working_dir"]
-
-      if not os.path.exists(working_dir):
-        if self.extract_file_path(working_dir):
-          working_dir = self.extract_file_path(working_dir)
-        else:
-          working_dir = os.getcwd()
-
-    self.config["working_dir"] = working_dir
-
-

@@ -21,5 +21,5 @@ class CucumberTestFile(RSpecTestFile):
 
   def options(self):
     opts  = " --format html"
-    opts += " --require " + self.config["working_dir"]+"/features/support/atlas"
+    opts += " --require " + self.config["root_directory"]+"/features/support/atlas"
     return opts

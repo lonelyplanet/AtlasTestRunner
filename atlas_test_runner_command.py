@@ -22,7 +22,7 @@ class BaseCommand(sublime_plugin.TextCommand):
       "cucumber_cmd":   settings.get("cucumber_cmd"),
       "rspec_regex":    settings.get("rspec_regex"),
       "rspec_cmd":      settings.get("rspec_cmd"),
-      "working_dir":    self.root_directory(),
+      "root_directory": self.root_directory(),
       "file_path":      self.view.file_name(),
       "line_number":    self.line_number(),
       "command_prefix": self.command_prefix(),

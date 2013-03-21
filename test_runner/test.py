@@ -113,38 +113,5 @@ class TestRSpec(unittest.TestCase):
     self.assertEqual(test.path_to_test_file(), "spec/hoi/polloi_spec.rb")
 
 
-class TestWorkingDirectory(unittest.TestCase):
-  def setUp(self):
-    global config
-    config = get_config()
-
-  def test_unspecified_dir(self):
-    test = TestFile(config)
-    self.assertEqual(test.config["working_dir"], os.getcwd())
-
-  def test_explicit_dir(self):
-    test_dir = os.path.dirname(os.getcwd())
-    config["working_dir"] = test_dir
-    test = TestFile(config)
-    self.assertEqual(test.config["working_dir"], test_dir)
-
-  def test_explicit_though_missing_dir(self):
-    config["working_dir"] = "/some/enchanted/evening"
-    config["file_path"]   = "/someone/chanted/evening"
-    test = TestFile(config)
-    self.assertEqual(test.config["working_dir"], os.getcwd())
-
-  def test_regex(self):
-    config["working_dir"] = "(.*three/coins)"
-    config["file_path"] = "/three/coins/in/a/fountain.feature"
-    test = TestFile(config)
-    self.assertEqual(test.config["working_dir"], "/three/coins")
-
-  def test_unmatched_regex(self):
-    config["working_dir"] = "(.*three/coins)"
-    config["file_path"]   = "/roman/holiday.feature"
-    test = TestFile(config)
-    self.assertEqual(test.config["working_dir"], os.getcwd())
-
 if __name__ == '__main__':
   unittest.main()

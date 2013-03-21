@@ -36,7 +36,7 @@ class RSpecTestFile(TestFile):
     cmd += " --out " + self.tmpfile
     cmd += " " + testfile
     Exec(cmd,
-         working_dir=self.config["working_dir"],
+         working_dir=self.config["root_directory"],
          during=self.during,
          after=self.after,
          config=self.config)
