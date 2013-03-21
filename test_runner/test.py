@@ -25,10 +25,11 @@ def dummy_fn2(x, y): return None
 
 def get_config():
   config = eval(open(plugin_settings_file(), "r").read())
-  config.pop("working_dir")
   config["file_path"] = "/dummy/file/path"
-  config["erase_setting"] = dummy_fn
-  config["set_setting"]   = dummy_fn2
+  config["fn"] = {
+    "erase_setting": dummy_fn,
+    "set_setting":   dummy_fn2
+  }
   return config
 
 def mktmpfile():

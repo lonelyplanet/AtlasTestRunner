@@ -20,7 +20,7 @@ class TestFile(object):
   def setup_tmpfile(self):
     self.clear_previous_tempfiles()
     self.tmpfile = self.mktmpfile()
-    self.config['set_setting']('previous_tempfile', self.tmpfile)
+    self.config['fn']['set_setting']('previous_tempfile', self.tmpfile)
 
   def clear_previous_tempfiles(self):
     if 'previous_tmpfile' in self.config.keys():
@@ -29,7 +29,7 @@ class TestFile(object):
       if os.path.exists(tmpdir):
         os.system("rm -rf "+tmpdir)
       self.config.pop('previous_tmpfile')
-      self.config['erase_setting']('previous_tmpfile')
+      self.config['fn']['erase_setting']('previous_tmpfile')
 
   def set_working_dir(self):
     # default to cwd

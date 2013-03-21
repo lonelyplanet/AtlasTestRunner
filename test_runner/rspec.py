@@ -28,8 +28,8 @@ class RSpecTestFile(TestFile):
     return "--format html"
 
   def run(self, testfile):
-    self.set_status  = self.config["set_status"]
-    self.set_timeout = self.config["set_timeout"]
+    self.set_status  = self.config["fn"]["set_status"]
+    self.set_timeout = self.config["fn"]["set_timeout"]
     self.spinner     = StatusSpinner()
     cmd  = self.command()
     cmd += " " + self.options()

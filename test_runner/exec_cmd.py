@@ -61,6 +61,6 @@ class Exec(object):
           message = message[1:]
         message = message.strip()
         if not "deprecated" in message:
-          self.config["error_message"](message)
+          self.config["fn"]["error_message"](message)
       except Exception as ex:
         print(ex)

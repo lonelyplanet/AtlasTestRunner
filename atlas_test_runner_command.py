@@ -24,17 +24,28 @@ class BaseCommand(sublime_plugin.TextCommand):
       "rspec_cmd":      settings.get("rspec_cmd"),
       "working_dir":    self.root_directory(),
       "file_path":      self.view.file_name(),
-      "set_status":     self.view.set_status,
-      "erase_setting":  self.erase_setting,
-      "set_setting":    self.set_setting,
-      "error_message":  sublime.error_message,
-      "set_timeout":    sublime.set_timeout,
       "line_number":    self.line_number(),
-      "command_prefix": self.command_prefix()
+      "command_prefix": self.command_prefix(),
+      "fn":             {
+        "set_status":     self.view.set_status,
+        "erase_setting":  self.erase_setting,
+        "set_setting":    self.set_setting,
+        "error_message":  sublime.error_message,
+        "set_timeout":    sublime.set_timeout
+      }
     }
-    print("AtlasTestRunner config:")
-    print(config)
+    self.log(config)
     return config
+
+  def log(self, config):
+    print("AtlasTestRunner config:")
+    print("-----------------------")
+    max_key_len = max(map(len, config.keys()))
+    for k in sorted(config.keys()):
+      if k != "fn":
+        key = k.ljust(max_key_len)
+        print("%s: %s" % (key, config[k]))
+    print("-----------------------")
 
   def root_directory(self):
     try:
