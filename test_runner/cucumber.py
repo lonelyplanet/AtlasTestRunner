@@ -17,7 +17,7 @@ class CucumberTestFile(RSpecTestFile):
     return self.extract_file_path(self.config["cucumber_regex"])
 
   def command(self):
-    return self.config["command_prefix"] + self.config["cucumber_cmd"]
+    return self.config["command_prefix"] + "cucumber"
 
   def options(self):
     opts  = " --format html"

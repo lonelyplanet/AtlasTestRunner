@@ -19,7 +19,6 @@ class BaseCommand(sublime_plugin.TextCommand):
       "jasmine_coffee_url":   settings.get("jasmine_coffee_url"),
       "jasmine_coffee_regex": settings.get("jasmine_coffee_regex"),
       "cucumber_regex": settings.get("cucumber_regex"),
-      "cucumber_cmd":   settings.get("cucumber_cmd"),
       "rspec_regex":    settings.get("rspec_regex"),
       "root_directory": self.root_directory(),
       "file_path":      self.view.file_name(),
