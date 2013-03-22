@@ -26,8 +26,10 @@ class JasmineCoffeeTestFile(TestFile):
     return current_spec_description(self.config["file_path"], self.config["line_number"])
 
   def run_all_tests(self):
+    print("running test file: "+self.jasmine_path())
     webbrowser.open_new_tab(self.build_url())
 
   def run_single_test(self):
+    print("running test file: "+self.jasmine_path())
     webbrowser.open_new_tab(self.build_url()+"?spec="+self.current_spec_description())
 

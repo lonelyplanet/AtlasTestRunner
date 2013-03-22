@@ -53,6 +53,7 @@ class RSpecTestFile(TestFile):
     return "--format html"
 
   def run(self, testfile):
+    print("running test file: "+testfile)
     self.set_status  = self.config["fn"]["set_status"]
     self.set_timeout = self.config["fn"]["set_timeout"]
     self.spinner     = StatusSpinner()
