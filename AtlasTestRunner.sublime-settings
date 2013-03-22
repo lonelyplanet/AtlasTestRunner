@@ -1,6 +1,6 @@
 {
-  "jasmine_coffee_url":   "http://atlas.local/runspec/spec/",
-  "jasmine_coffee_regex": "([^/]*_spec).coffee",
+  "jasmine_coffee_url":   "http://atlas.local/runspec/",
+  "jasmine_coffee_regex": "(spec/.*_spec).coffee",
   "cucumber_regex":       "(features/.*.feature)",
   "rspec_regex":          "(spec/.*_spec.rb)"
 }
