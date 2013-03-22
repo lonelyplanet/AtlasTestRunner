@@ -23,7 +23,7 @@ class AtlasTestRunner(object):
     if CucumberTestFile.matches(file_path):
       return CucumberTestFile(self.config)
 
-    if RSpecTestFile.matches(file_path):
+    if RSpecTestFile.matches(file_path, self.config["rspec_regex"]):
       return RSpecTestFile(self.config)
 
     return UnknownTestFile(self.config)

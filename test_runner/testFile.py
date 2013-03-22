@@ -7,8 +7,10 @@ class TestFile(object):
     self.config = config
     self.setup_tmpfile()
 
-  def extract_file_path(self, pat):
-    m = re.search(pat, self.config["file_path"])
+  def extract_file_path(self, pat, file_path=None):
+    if not file_path:
+      file_path = self.config["file_path"]
+    m = re.search(pat, file_path)
     return (m and m.groups()[0])    
 
   def mktmpfile(self):

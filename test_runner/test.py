@@ -4,7 +4,7 @@ import os
 import tempfile
 import unittest
 import sys
-from os.path import dirname
+from os.path import dirname, abspath
 
 # for Sublime Text 2
 sys.path.append(dirname(__file__)+"/../../")
@@ -14,8 +14,8 @@ from AtlasTestRunner.test_runner.rspec    import RSpecTestFile
 from AtlasTestRunner.test_runner.testFile import TestFile
 from AtlasTestRunner.test_runner.jasmine_coffee  import JasmineCoffeeTestFile
 
-def fixture_path(fname):
-  return dirname(__file__)+"/fixtures/"+fname
+def fixture_path(fname=""):
+  return abspath(dirname(__file__)+"/fixtures/"+fname)
 
 def plugin_settings_file():
   return dirname(__file__)+"/../AtlasTestRunner.sublime-settings"
@@ -26,6 +26,7 @@ def dummy_fn2(x, y): return None
 def get_config():
   config = eval(open(plugin_settings_file(), "r").read())
   config["file_path"] = "/dummy/file/path"
+  config["root_directory"] = abspath(dirname(__file__)+"/..")
   config["fn"] = {
     "erase_setting": dummy_fn,
     "set_setting":   dummy_fn2
@@ -100,18 +101,21 @@ class TestCucumber(unittest.TestCase):
 class TestRSpec(unittest.TestCase):
   def setUp(self):
     global test
-    config = get_config()
-    config["rspec_regex"] = "(spec/.*_spec.rb)"
-    test = RSpecTestFile(config)
+    test = RSpecTestFile(get_config())
 
   def test_matches(self):
-    self.assertTrue(RSpecTestFile.matches("spics/and/specs_spec.rb"))
-    self.assertFalse(RSpecTestFile.matches("rhymes/with_flex.rb"))
+    self.assertTrue(RSpecTestFile.matches("spics/and/specs_spec.rb", get_config()))
 
   def test_spec_path(self):
     test.config["file_path"] = "/a/spec/hoi/polloi_spec.rb"
     self.assertEqual(test.path_to_test_file(), "spec/hoi/polloi_spec.rb")
 
+  def test_path_to_related_test_file(self):
+    config = get_config()
+    config["root_directory"] = fixture_path()
+    config["file_path"] = "antelope.rb"
+    test = RSpecTestFile(config)
+    self.assertEqual(test.path_to_test_file(), fixture_path()+"/spec/model/antelope_spec.rb")
 
 if __name__ == '__main__':
   unittest.main()

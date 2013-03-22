@@ -1,5 +1,7 @@
+import os
 import re
 import sys
+import fnmatch
 import webbrowser
 
 from functools import partial
@@ -12,14 +14,37 @@ from AtlasTestRunner.test_runner.exec_cmd import Exec
 from AtlasTestRunner.test_runner.testFile import TestFile
 from AtlasTestRunner.test_runner.spinner  import StatusSpinner
 
+def find_files(directory, pattern):
+  matches = []
+  for root, dirnames, filenames in os.walk(directory):
+    for filename in fnmatch.filter(filenames, pattern):
+        matches.append(os.path.join(root, filename))
+  return [os.path.abspath(m) for m in matches]
+
 class RSpecTestFile(TestFile):
 
   @staticmethod
-  def matches(file_path):
-    return re.search("_spec\.rb$", file_path)
+  def matches(file_path, config):
+    if re.search("_spec\.rb$", file_path):
+      return True
+
+    if not re.search("\.rb$", file_path):
+      return False
+
+    return True
 
   def path_to_test_file(self):
-    return self.extract_file_path(self.config["rspec_regex"])
+    test_path = self.extract_file_path(self.config["rspec_regex"])
+    if test_path:
+      return test_path
+
+    file_path  = self.config["file_path"]
+    spec_name  = os.path.basename(file_path)[:-3]+"_spec.rb"
+    spec_files = find_files(self.config["root_directory"]+"/spec", spec_name)
+    if len(spec_files) > 0:
+      return spec_files[0]
+
+    return None
 
   def command(self):
     return self.config["command_prefix"] + "rspec"
